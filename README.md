@@ -45,5 +45,5 @@ Interfacing through OSC
 -----------------------
 The program sends information about the state of the machine through OSC
 (Open Sound Control) messages to `localhost:7770` with addresses like
-`/rotor/0` up to `/rotor/35`. The message format is `ff` with the first float
+`/rotor/0` up to `/rotor/107`. The message format is `ff` with the first float
 being the rotor's current angle and the second float is the rotor's speed.
