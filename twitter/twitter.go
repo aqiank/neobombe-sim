@@ -11,11 +11,11 @@ import (
 )
 
 var settings = struct {
-	ConsumerKey string `json:"consumer_key"`
-	ConsumerSecret string `json:"consumer_secret"`
-	AccessToken string `json:"access_token"`
+	ConsumerKey       string `json:"consumer_key"`
+	ConsumerSecret    string `json:"consumer_secret"`
+	AccessToken       string `json:"access_token"`
 	AccessTokenSecret string `json:"access_token_secret"`
-	Track string `json:"track"`
+	Track             string `json:"track"`
 }{}
 
 var twitter *anaconda.TwitterApi
@@ -58,7 +58,7 @@ func listen(track string, msgChan, decChan chan string) {
 		data := <-stream.C
 		switch t := data.(type) {
 		case anaconda.Tweet:
-			msgChan <-t.Text
+			msgChan <- t.Text
 			<-decChan
 			flush(stream)
 		}
@@ -74,7 +74,8 @@ func flush(stream anaconda.Stream) {
 	}()
 
 	go func() {
-		for range stream.C {}
+		for range stream.C {
+		}
 	}()
 
 	select {

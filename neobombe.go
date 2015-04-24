@@ -14,12 +14,12 @@ import (
 var sigChan = make(chan os.Signal, 1)
 
 var channels = map[string]interface{}{
-	"signal": sigChan,
-	"message": make(chan string, 1),
+	"signal":    sigChan,
+	"message":   make(chan string, 1),
 	"encrypted": make(chan string, 1),
 	"decrypted": make(chan string, 1),
-	"state": make(chan simulation.Bombe, 1),
-	"osc": make(chan simulation.Bombe, 1),
+	"state":     make(chan simulation.Bombe, 1),
+	"osc":       make(chan simulation.Bombe, 1),
 }
 
 func main() {

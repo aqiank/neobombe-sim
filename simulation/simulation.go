@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	NumUnits = 36
+	NumUnits        = 36
 	NumCombinations = 26 * 26 * 26
 
 	AngleStep = math.Pi / enigma.NumAlphabets
@@ -30,7 +30,7 @@ func (r *Rotor) offset() int {
 
 type Unit struct {
 	Enigma enigma.Enigma `json:"enigma"`
-	Rotors [3]Rotor `json:"rotors"`
+	Rotors [3]Rotor      `json:"rotors"`
 }
 
 func (u *Unit) init(idx int) {
@@ -49,12 +49,11 @@ func (u *Unit) run() {
 	u.Enigma.Step(1)
 }
 
-type Bombe struct{
+type Bombe struct {
 	Units [NumUnits]Unit
 }
 
 var bombe Bombe
-var track string
 
 func init() {
 	for i := range bombe.Units {

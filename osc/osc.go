@@ -7,8 +7,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/jackyb/neobombe-sim/simulation"
 	"bitbucket.org/liamstask/gosc"
+	"github.com/jackyb/neobombe-sim/simulation"
 )
 
 var addr *net.UDPAddr
@@ -53,7 +53,7 @@ func send(bombe simulation.Bombe) {
 
 func buildMsg(rotor simulation.Rotor, idx int) osc.Message {
 	angle := rotor.Angle
-	speed := simulation.AngleStep / math.Pow(26.0, float64(idx % 3))
+	speed := simulation.AngleStep / math.Pow(26.0, float64(idx%3))
 
 	m := osc.Message{Address: "/rotor/" + strconv.Itoa(idx)}
 	m.Args = append(m.Args, float32(angle))

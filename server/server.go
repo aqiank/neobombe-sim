@@ -14,7 +14,7 @@ const Port = "8080"
 
 type StateData struct {
 	Units [simulation.NumUnits]simulation.Unit `json:"units"`
-	Text string `json:"text"`
+	Text  string                               `json:"text"`
 }
 
 var bombe simulation.Bombe
@@ -44,7 +44,7 @@ func Run(cs map[string]interface{}) {
 		http.HandleFunc("/", indexHandler)
 		http.HandleFunc("/update", updateHandler)
 		fmt.Println("server starting..")
-		log.Fatal(http.ListenAndServe(":" + Port, nil))
+		log.Fatal(http.ListenAndServe(":"+Port, nil))
 	}()
 	go func() {
 		for {
