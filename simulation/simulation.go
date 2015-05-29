@@ -87,7 +87,7 @@ func Run(cs map[string]interface{}) {
 			println("simulation: Decrypting:", enc)
 
 			key := stringutil.Sanitize(twitter.Track())
-			decrypt(enc, key, encChan, stateChan, oscChan)
+			decrypt(enc, key, encChan, stateChan)
 			println("simulation: Decrypted:", msg)
 
 			decChan <- msg
