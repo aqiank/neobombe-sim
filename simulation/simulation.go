@@ -61,12 +61,11 @@ func init() {
 	}
 }
 
-func update(stateChan, oscChan chan<- Bombe) {
+func update(stateChan chan<- Bombe) {
 	for i := range bombe.Units {
 		bombe.Units[i].run()
 	}
 	stateChan <- bombe
-	oscChan <- bombe
 }
 
 func Run(cs map[string]interface{}) {
@@ -95,6 +94,13 @@ func Run(cs map[string]interface{}) {
 		}
 	}()
 
+	go func() {
+		for {
+			oscChan <- bombe
+			time.Sleep(16 * time.Millisecond)
+		}
+	}()
+
 	sigChan <- <-sigChan
 	fmt.Println("simulation exiting..")
 }
@@ -115,7 +121,7 @@ func decrypt(msg, orig string, encChan chan string, stateChan, oscChan chan Bomb
 				return
 			}
 		}
-		update(stateChan, oscChan)
+		update(stateChan)
 		time.Sleep(16 * time.Millisecond)
 	}
 }
