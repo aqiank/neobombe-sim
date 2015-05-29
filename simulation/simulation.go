@@ -111,7 +111,7 @@ func encrypt(msg string) string {
 	return m.Encrypt(msg)
 }
 
-func decrypt(msg, orig string, encChan chan string, stateChan, oscChan chan Bombe) {
+func decrypt(msg, orig string, encChan chan string, stateChan chan Bombe) {
 	for {
 		for i := range bombe.Units {
 			e := bombe.Units[i].Enigma.Clone()
