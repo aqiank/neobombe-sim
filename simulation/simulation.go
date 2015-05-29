@@ -51,6 +51,7 @@ func (u *Unit) run() {
 
 type Bombe struct {
 	Units [NumUnits]Unit
+	Spinning bool
 }
 
 var bombe Bombe
@@ -80,17 +81,23 @@ func Run(cs map[string]interface{}) {
 	go func() {
 		for {
 			msg := <-msgChan
-			println("simulation: Received message:", msg)
 
+			println("simulation: Received message, encrypting:", msg)
 			msg = stringutil.Sanitize(msg)
 			enc := encrypt(msg)
-			println("simulation: Decrypting:", enc)
 
+			// start spinning
+			bombe.Spinning = true
+
+			println("simulation: Decrypting:", enc)
 			key := stringutil.Sanitize(twitter.Track())
 			decrypt(enc, key, encChan, stateChan)
-			println("simulation: Decrypted:", msg)
 
+			println("simulation: Decrypted:", msg)
 			decChan <- msg
+
+			// stop spinning
+			bombe.Spinning = false
 		}
 	}()
 

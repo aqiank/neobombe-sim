@@ -44,16 +44,20 @@ func send(bombe simulation.Bombe) {
 	idx := 0
 	for _, u := range bombe.Units {
 		for _, r := range u.Rotors {
-			m := buildMsg(r, idx)
+			m := buildMsg(r, idx, bombe.Spinning)
 			m.WriteTo(conn)
 			idx++
 		}
 	}
 }
 
-func buildMsg(rotor simulation.Rotor, idx int) osc.Message {
+func buildMsg(rotor simulation.Rotor, idx int, spinning bool) osc.Message {
 	angle := rotor.Angle
-	speed := simulation.AngleStep / math.Pow(26.0, float64(idx%3))
+
+	speed := 0.0
+	if spinning {
+		speed = simulation.AngleStep / math.Pow(26.0, float64(idx%3))
+	}
 
 	m := osc.Message{Address: "/rotor/" + strconv.Itoa(idx)}
 	m.Args = append(m.Args, float32(angle))
